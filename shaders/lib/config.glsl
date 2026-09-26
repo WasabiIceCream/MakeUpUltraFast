@@ -200,7 +200,8 @@ Javier Garduño - GNU Lesser General Public License v3.0
 // Gameoverse: mod sky objects (Cosmos-rendered stars from Spyglass Astronomy) in the
 // sky-textured pass get a round sprite, Cosmos's twinkle and their own brightness.
 #define GAMEOVERSE_MOD_SKY
-#define GO_MOD_SKY_BRIGHTNESS 0.15 // [0.02 0.03 0.05 0.07 0.1 0.15 0.2 0.3 0.5 0.75 1.0 1.5 2.0]
+#define GO_MOD_SKY_BRIGHTNESS 0.1 // [0.02 0.03 0.05 0.07 0.1 0.15 0.2 0.3 0.5 0.75 1.0 1.5 2.0]
+#define GO_MOD_SKY_OBJECT_BRIGHTNESS 0.3 // [0.05 0.1 0.15 0.2 0.3 0.4 0.5 0.75 1.0 1.5 2.0]
 
 const float sunPathRotation = -25.0; // [-40.0 -35.0 -30.0 -25.0 -20.0 -15.0 -10.0 -5.0 0.0 5.0 10.0 15.0 20.0 25.0 30.0 35.0 40.0]
 

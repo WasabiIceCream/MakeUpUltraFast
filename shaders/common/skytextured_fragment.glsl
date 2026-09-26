@@ -57,7 +57,11 @@ void main() {
             if (goModStar > 0.5
                     || (renderStage != MC_RENDER_STAGE_SUN && renderStage != MC_RENDER_STAGE_MOON)) {
                 vec4 sprite = texture2D(tex, texcoord);
-                blockColor = vec4(sprite.rgb * tintColor.rgb * goTwinkle * GO_MOD_SKY_BRIGHTNESS,
+                // Mostly white: Cosmos's pale star tints read as blue once dimmed over
+                // MakeUp's night sky.
+                vec3 goStar = sprite.rgb * tintColor.rgb;
+                goStar = mix(vec3(dot(goStar, vec3(0.2126, 0.7152, 0.0722))), goStar, 0.25);
+                blockColor = vec4(goStar * goTwinkle * GO_MOD_SKY_BRIGHTNESS,
                                   sprite.a * sprite.a * sprite.a * sprite.a * tintColor.a);
             } else {
                 blockColor.rgb *= sky_luma_correction;

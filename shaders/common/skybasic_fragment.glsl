@@ -37,6 +37,11 @@ uniform float pixelSizeY;
 
 varying vec4 star_data;
 
+#ifdef GAMEOVERSE_MOD_SKY
+    varying vec4 goColor;
+    varying float goRadius;
+#endif
+
 /* Utility functions */
 
 #if MC_VERSION < 11604
@@ -90,6 +95,16 @@ void main() {
 
     #if MC_VERSION >= 11604
         blockColor.rgba = vec4(texture2D(gaux4, gl_FragCoord.xy * vec2(pixelSizeX, pixelSizeY)).rgb, clamp(star_data.a * 2.0, 0.0, 1.0));
+    #endif
+
+    #if defined GAMEOVERSE_MOD_SKY && !defined THE_END && !defined NETHER
+        // Spyglass Astronomy's planets and constellation lines (additive blend). MakeUp
+        // repaints this pass with its own sky colour and only keeps grey (vanilla star)
+        // vertices, so coloured planets vanished. They sit on the 100-block sky sphere, well
+        // inside the sky disc, void plane and sunset fan rim, so the radius tells them apart.
+        if (goRadius < 100.5) {
+            blockColor = vec4(goColor.rgb * GO_MOD_SKY_OBJECT_BRIGHTNESS, goColor.a);
+        }
     #endif
 
     #include "/src/writebuffers.glsl"
