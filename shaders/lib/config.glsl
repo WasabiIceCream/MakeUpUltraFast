@@ -197,6 +197,11 @@ Javier Garduño - GNU Lesser General Public License v3.0
 #define COLOR_BLIND_MODE 0  // [0 1 2]  Set color blindness type
 
 // Sun rotation angle
+// Gameoverse: mod sky objects (Cosmos-rendered stars from Spyglass Astronomy) in the
+// sky-textured pass get a round sprite, Cosmos's twinkle and their own brightness.
+#define GAMEOVERSE_MOD_SKY
+#define GO_MOD_SKY_BRIGHTNESS 1.0 // [0.1 0.2 0.3 0.5 0.75 1.0 1.5 2.0 3.0]
+
 const float sunPathRotation = -25.0; // [-40.0 -35.0 -30.0 -25.0 -20.0 -15.0 -10.0 -5.0 0.0 5.0 10.0 15.0 20.0 25.0 30.0 35.0 40.0]
 
 #define SHADOW_DISTANCE_SLIDER 1 // [0 1 2]

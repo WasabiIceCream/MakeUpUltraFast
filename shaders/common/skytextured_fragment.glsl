@@ -24,6 +24,11 @@ varying vec2 texcoord;
 varying vec4 tintColor;
 varying float sky_luma_correction;  // Flat
 
+#ifdef GAMEOVERSE_MOD_SKY
+    varying float goTwinkle;
+    uniform int renderStage;
+#endif
+
 // MAIN FUNCTION ------------------
 
 void main() {
@@ -41,7 +46,21 @@ void main() {
         // Toma el color puro del bloque
         vec4 blockColor = texture2D(tex, texcoord) * tintColor;
 
-        blockColor.rgb *= sky_luma_correction;
+        #ifdef GAMEOVERSE_MOD_SKY
+            // Mod pipelines never change renderStage, so anything that isn't the sun or moon
+            // here is a mod sky object (Cosmos stars; additive blend, SRC_ALPHA ONE). Squaring
+            // the 3x3 sprite's alpha drops its faint edges, and the night luma boost is skipped:
+            // together they turned every star into a bright square.
+            if (renderStage != MC_RENDER_STAGE_SUN && renderStage != MC_RENDER_STAGE_MOON) {
+                vec4 sprite = texture2D(tex, texcoord);
+                blockColor = vec4(sprite.rgb * tintColor.rgb * goTwinkle * GO_MOD_SKY_BRIGHTNESS,
+                                  sprite.a * sprite.a * tintColor.a);
+            } else {
+                blockColor.rgb *= sky_luma_correction;
+            }
+        #else
+            blockColor.rgb *= sky_luma_correction;
+        #endif
     #endif
 
     #include "/src/writebuffers.glsl"
