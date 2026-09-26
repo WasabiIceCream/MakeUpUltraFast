@@ -17,8 +17,10 @@ MakeUp's night `sky_luma_correction` boost, under Cosmos's additive blend (`SRC_
 (default 0.15). Mod pipelines never change `renderStage`, and Cosmos draws right after the
 moon, so its stars arrive tagged `MOON` (found with a colour-coded build: red/green/blue per
 branch). The vertex shader tells them apart by geometry instead: Cosmos stars sit on a
-100-block sphere (corners under 100.5 from the origin), the sun and moon quads well beyond. `common/skytextured_vertex.glsl`: Cosmos's twinkle (its own
-vertex shader is replaced by the pack), on `frameTimeCounter`. `lib/config.glsl`: the
+100-block sphere (corners under 100.5 from the origin), the sun and moon quads well beyond.
+
+`common/skytextured_vertex.glsl`: Cosmos's twinkle (its own vertex shader is replaced by
+the pack), on `frameTimeCounter`, and that radius test. `lib/config.glsl`: the
 `GAMEOVERSE_MOD_SKY` switch and the brightness option, shown as "Spyglass Stars Brightness"
 on the Compatibility screen. Same approach as `../eclipse-shader-gameoverse`.
 
