@@ -303,3 +303,5 @@ option.SHARPENING=Sharpen strength
 
 option.GO_MOD_SKY_BRIGHTNESS=Spyglass Stars Brightness
 option.GO_MOD_SKY_BRIGHTNESS.comment=Brightness of the modded stars (Gameoverse).
+option.GO_MOD_SKY_OBJECT_BRIGHTNESS=Planets and Lines Brightness
+option.GO_MOD_SKY_OBJECT_BRIGHTNESS.comment=Brightness of the modded planets and constellation lines (Gameoverse).
