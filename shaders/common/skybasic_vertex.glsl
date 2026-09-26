@@ -30,6 +30,11 @@ uniform mat4 gbufferModelView;
 
 varying vec4 star_data;
 
+#ifdef GAMEOVERSE_MOD_SKY
+    varying vec4 goColor;
+    varying float goRadius;
+#endif
+
 /* Utility functions */
 
 #if AA_TYPE > 0
@@ -47,6 +52,11 @@ void main() {
 
     #if AA_TYPE > 0
         gl_Position.xy += taaOffset * gl_Position.w;
+    #endif
+
+    #ifdef GAMEOVERSE_MOD_SKY
+        goColor = gl_Color;
+        goRadius = length(gl_Vertex.xyz);
     #endif
 
     #if !defined THE_END
