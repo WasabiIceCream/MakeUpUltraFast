@@ -300,3 +300,6 @@ screen.CUSTOM_COLORS_NV=Night vision custom color
 
 option.IMAGE_SHARPENING=Image sharpening
 option.SHARPENING=Sharpen strength
+
+option.GO_MOD_SKY_BRIGHTNESS=Spyglass Stars Brightness
+option.GO_MOD_SKY_BRIGHTNESS.comment=Brightness of the modded stars (Gameoverse).
