@@ -26,6 +26,7 @@ varying float sky_luma_correction;  // Flat
 
 #ifdef GAMEOVERSE_MOD_SKY
     varying float goTwinkle;
+    varying float goModStar;
     uniform int renderStage;
 #endif
 
@@ -47,12 +48,14 @@ void main() {
         vec4 blockColor = texture2D(tex, texcoord) * tintColor;
 
         #ifdef GAMEOVERSE_MOD_SKY
-            // Mod pipelines never change renderStage, so anything that isn't the sun or moon
-            // here is a mod sky object (Cosmos stars; additive blend, SRC_ALPHA ONE). The 3x3
+            // Mod pipelines never change renderStage, so a mod sky object arrives with whatever
+            // stage came last (MOON for Cosmos stars; see the vertex shader for how they are
+            // told apart from the moon). Cosmos uses an additive blend (SRC_ALPHA ONE). The 3x3
             // sprite's alpha to the 4th power drops its faint edges (squared still left a cross
             // under MakeUp's night exposure), and the night luma boost is skipped: together
             // they turned every star into a bright square.
-            if (renderStage != MC_RENDER_STAGE_SUN && renderStage != MC_RENDER_STAGE_MOON) {
+            if (goModStar > 0.5
+                    || (renderStage != MC_RENDER_STAGE_SUN && renderStage != MC_RENDER_STAGE_MOON)) {
                 vec4 sprite = texture2D(tex, texcoord);
                 blockColor = vec4(sprite.rgb * tintColor.rgb * goTwinkle * GO_MOD_SKY_BRIGHTNESS,
                                   sprite.a * sprite.a * sprite.a * sprite.a * tintColor.a);

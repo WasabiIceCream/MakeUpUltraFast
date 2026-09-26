@@ -18,6 +18,7 @@ varying float sky_luma_correction;
 
 #ifdef GAMEOVERSE_MOD_SKY
     varying float goTwinkle;
+    varying float goModStar;
     uniform float frameTimeCounter;
 #endif
 
@@ -41,6 +42,12 @@ void main() {
         float goSeed = fract(sin(dot(gl_Vertex.xy, vec2(12.9898, 78.233))) * 43758.5453);
         goTwinkle = 0.5 + 0.5 * sin(frameTimeCounter * mix(1.0, 3.0, goSeed));
         if (gl_Color.rgb == vec3(1.0)) goTwinkle = 2.0;  // Cosmos: pure white stars hold steady
+
+        // Cosmos draws its stars right after the moon, and Iris never changes renderStage for
+        // mod pipelines, so they arrive tagged MOON (checked with a colour-coded build). Tell
+        // them apart by geometry: every Cosmos star sits on a 100-block sphere with corners
+        // under 0.5 off it, while the sun and moon quads' corners are several blocks further.
+        goModStar = length(gl_Vertex.xyz) < 100.5 ? 1.0 : 0.0;
     #endif
 
     sky_luma_correction = luma(dayBlend(LIGHT_SUNSET_COLOR, LIGHT_DAY_COLOR, LIGHT_NIGHT_COLOR));
