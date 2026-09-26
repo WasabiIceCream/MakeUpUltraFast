@@ -24,6 +24,14 @@ the pack), on `frameTimeCounter`, and that radius test. `lib/config.glsl`: the
 `GAMEOVERSE_MOD_SKY` switch and the brightness option, shown as "Spyglass Stars Brightness"
 on the Compatibility screen. Same approach as `../eclipse-shader-gameoverse`.
 
+Planets and constellation lines (Spyglass Astronomy's untextured `sga_objects` pipeline) go
+through `gbuffers_skybasic`, which MakeUp repaints with its own sky colour, keeping only grey
+(vanilla star) vertices, so coloured planets vanished. `common/skybasic_*.glsl`: the same
+100-block-sphere radius test picks them out (the sky disc, void plane and sunset fan rim are
+all much further out) and draws their own colour at `GO_MOD_SKY_OBJECT_BRIGHTNESS` (0.3,
+"Planets and Lines Brightness"). Stars are also pulled 75% toward white (Cosmos's pale tints
+read as blue once dimmed) at `GO_MOD_SKY_BRIGHTNESS` 0.1. Approved in game 2026-09-26.
+
 ## Build
 
     ./build.sh   # MakeUp-UltraFast-9.5e.zip, same layout and name as the release zip
