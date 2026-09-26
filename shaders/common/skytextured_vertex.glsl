@@ -16,6 +16,11 @@ varying vec2 texcoord;
 varying vec4 tintColor;
 varying float sky_luma_correction;
 
+#ifdef GAMEOVERSE_MOD_SKY
+    varying float goTwinkle;
+    uniform float frameTimeCounter;
+#endif
+
 #if AA_TYPE > 0
     #include "/src/taa_offset.glsl"
 #endif
@@ -29,6 +34,14 @@ varying float sky_luma_correction;
 void main() {
     texcoord = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;
     tintColor = gl_Color;
+
+    #ifdef GAMEOVERSE_MOD_SKY
+        // Cosmos twinkles its stars in its own vertex shader, which a shader pack replaces.
+        // Same maths (per-vertex seed, speed 1.0 to 3.0), on real time.
+        float goSeed = fract(sin(dot(gl_Vertex.xy, vec2(12.9898, 78.233))) * 43758.5453);
+        goTwinkle = 0.5 + 0.5 * sin(frameTimeCounter * mix(1.0, 3.0, goSeed));
+        if (gl_Color.rgb == vec3(1.0)) goTwinkle = 2.0;  // Cosmos: pure white stars hold steady
+    #endif
 
     sky_luma_correction = luma(dayBlend(LIGHT_SUNSET_COLOR, LIGHT_DAY_COLOR, LIGHT_NIGHT_COLOR));
 
