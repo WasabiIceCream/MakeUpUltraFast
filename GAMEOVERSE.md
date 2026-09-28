@@ -2,8 +2,9 @@
 
 Upstream: `github.com/javiergcim/MakeUpUltraFast` (LGPL-3.0), released on Modrinth as
 `makeup-ultra-fast-shaders`. `origin` fetches upstream; its push URL is deliberately invalid.
-Branch `gameoverse`, based on upstream `e0c2e06` ("Version 9.5e"), which is identical file
-for file to the 9.5e zip we shipped before this fork.
+Branch `gameoverse`, based on upstream `f10f8e0` ("Version 9.5f", rebased 2026-09-27 from
+`e0c2e06` "Version 9.5e", which was identical file for file to the 9.5e zip we shipped before
+this fork; the pre-rebase branch is kept as `backup-9.5e-gameoverse`).
 
 ## Change
 
@@ -34,7 +35,7 @@ read as blue once dimmed) at `GO_MOD_SKY_BRIGHTNESS` 0.1. Approved in game 2026-
 
 ## Build
 
-    ./build.sh   # MakeUp-UltraFast-9.5e.zip, same layout and name as the release zip
+    ./build.sh   # MakeUp-UltraFast-9.5f.zip, same layout and name as the release zip
 
 Copy it to `fabric 26.1/automodpack/host-modpack/main/shaderpacks/`. Keeping the release file
 name keeps players' selected pack and saved settings.
