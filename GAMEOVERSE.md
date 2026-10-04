@@ -45,4 +45,5 @@ name keeps players' selected pack and saved settings.
 `scripts/check_mod_updates.py` reports a new Modrinth release under "Upstream watch".
 Then: `git fetch origin`, find the commit named after the release on `origin/master`, rebase
 `gameoverse` onto it, rename the zip in `build.sh` if the version changed (and the settings
-`.txt` in host-modpack with it), rebuild, check the night sky in game.
+`.txt` in host-modpack with it, and the zip's filename key in the server's `scripts/generate_modlist.py`
+`FILE_OVERRIDES`), rebuild, check the night sky in game.
