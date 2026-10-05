@@ -40,7 +40,8 @@ the volumetric clouds (no clouds below it), the void as a navy band below the ho
 builds (sky geometry red/blue by side of the horizon, then green for the void) and stock 9.5g, which had neither.
 `common/skybasic_vertex.glsl` now flags a vertex as on the 100-block sphere (`goOnSphere`, within 1 block); interpolated,
 only triangles with every corner on it keep 1, and the fragment shader paints those only (`> 0.99`). Approved in game:
-clear sky and clouds to the horizon by day with Voxy on, no navy at night.
+clear sky and clouds to the horizon by day with Voxy on, no navy at night. Pushed to `wasabi` the same day (the
+10-04 9.5g rebase had never been pushed; the old 9.5f-based branch is kept there as `backup-9.5f-gameoverse`).
 
 ## Build
 
