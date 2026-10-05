@@ -39,7 +39,7 @@ varying vec4 star_data;
 
 #ifdef GAMEOVERSE_MOD_SKY
     varying vec4 goColor;
-    varying float goRadius;
+    varying float goOnSphere;
 #endif
 
 /* Utility functions */
@@ -100,9 +100,10 @@ void main() {
     #if defined GAMEOVERSE_MOD_SKY && !defined THE_END && !defined NETHER
         // Spyglass Astronomy's planets and constellation lines (additive blend). MakeUp
         // repaints this pass with its own sky colour and only keeps grey (vanilla star)
-        // vertices, so coloured planets vanished. They sit on the 100-block sky sphere, well
-        // inside the sky disc, void plane and sunset fan rim, so the radius tells them apart.
-        if (goRadius < 100.5) {
+        // vertices, so coloured planets vanished. Every corner of theirs sits on the 100-block
+        // sky sphere. A plain radius test (< 100.5) also caught 26.1's sky disc and void disc,
+        // painting them opaque: a polygon edge across the clouds and a navy band below the horizon.
+        if (goOnSphere > 0.99) {
             blockColor = vec4(goColor.rgb * GO_MOD_SKY_OBJECT_BRIGHTNESS, goColor.a);
         }
     #endif

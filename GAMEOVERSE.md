@@ -33,6 +33,15 @@ all much further out) and draws their own colour at `GO_MOD_SKY_OBJECT_BRIGHTNES
 "Planets and Lines Brightness"). Stars are also pulled 75% toward white (Cosmos's pale tints
 read as blue once dimmed) at `GO_MOD_SKY_BRIGHTNESS` 0.1. Approved in game 2026-09-26.
 
+Sky-disc fix (2026-10-05): the planet test was "any vertex within 100.5 blocks", which on 26.1 also caught
+vanilla's sky disc and void disc. They were painted opaque: the disc's rim showed as a straight polygonal edge across
+the volumetric clouds (no clouds below it), the void as a navy band below the horizon wherever no terrain covered it
+(a thin strip at the far edge with Voxy on, everything past the render distance with Voxy off). Found with colour-coded
+builds (sky geometry red/blue by side of the horizon, then green for the void) and stock 9.5g, which had neither.
+`common/skybasic_vertex.glsl` now flags a vertex as on the 100-block sphere (`goOnSphere`, within 1 block); interpolated,
+only triangles with every corner on it keep 1, and the fragment shader paints those only (`> 0.99`). Approved in game:
+clear sky and clouds to the horizon by day with Voxy on, no navy at night.
+
 ## Build
 
     ./build.sh   # MakeUp-UltraFast-9.5g.zip, same layout and name as the release zip

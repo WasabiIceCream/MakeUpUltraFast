@@ -32,7 +32,7 @@ varying vec4 star_data;
 
 #ifdef GAMEOVERSE_MOD_SKY
     varying vec4 goColor;
-    varying float goRadius;
+    varying float goOnSphere;
 #endif
 
 /* Utility functions */
@@ -56,7 +56,10 @@ void main() {
 
     #ifdef GAMEOVERSE_MOD_SKY
         goColor = gl_Color;
-        goRadius = length(gl_Vertex.xyz);
+        // 1 for a vertex on Spyglass Astronomy's 100-block sky sphere. Interpolated, it stays 1 only
+        // across triangles whose corners all sit on it (planets, constellation lines); 26.1's sky
+        // disc and void disc have vertices inside that radius too, but their centres are far off it.
+        goOnSphere = float(abs(length(gl_Vertex.xyz) - 100.0) < 1.0);
     #endif
 
     #if !defined THE_END
